@@ -36,7 +36,7 @@ import AdminUsers from './tms/pages/admin/Users';
 
 function App() {
   return (
-    <Router>
+    <Router basename="/WYC-2026---TMS">
       <Routes>
         <Route path="/" element={<Navigate to="/tms" replace />} />
         <Route path="/tms" element={
