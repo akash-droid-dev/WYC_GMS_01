@@ -561,6 +561,7 @@
   background: linear-gradient(90deg, var(--tms-saffron) 0%, var(--tms-white) 35%, var(--tms-green) 100%);
   color: var(--tms-navy);
   padding: 1rem 1.5rem;
+  padding-right: 190px; /* Reserve space for RoleSelector (View as) */
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -660,9 +661,10 @@
   }
   .tms-public-nav-link:hover { background: rgba(19, 136, 8, 0.08); }
   .tms-public-main { padding: 1rem 0.75rem 1.5rem; }
+  .tms-public-header { padding-right: 150px; } /* Hamburger + RoleSelector */
 }
 @media (max-width: 480px) {
-  .tms-public-header { padding: 0.75rem 1rem; }
+  .tms-public-header { padding: 0.75rem 1rem; padding-right: 110px; } /* RoleSelector + hamburger */
   .tms-public-header .tms-logo span { font-size: 13px !important; }
 }
 
