@@ -33,12 +33,63 @@ import AdminMedals from './tms/pages/admin/Medals';
 import AdminProtests from './tms/pages/admin/Protests';
 import AdminReports from './tms/pages/admin/Reports';
 import AdminUsers from './tms/pages/admin/Users';
+import VerificationQueue from './admin/pages/VerificationQueue';
+import SyncMonitoring from './admin/pages/SyncMonitoring';
+import GlobalSearch from './admin/pages/GlobalSearch';
+import RegistrationLogin from './registration/pages/Login';
+import RegistrationLayout from './registration/RegistrationLayout';
+import RegistrationDashboard from './registration/pages/Dashboard';
+import DelegationPage from './registration/pages/Delegation';
+import ParticipantsPage from './registration/pages/Participants';
+import EventEntriesPage from './registration/pages/EventEntries';
+import SubmitPage from './registration/pages/Submit';
+import SuperAdminLayout from './superadmin/SuperAdminLayout';
+import SuperAdminDashboard from './superadmin/pages/SuperAdminDashboard';
+import SystemConfigPage from './superadmin/pages/SystemConfig';
+import MastersPage from './superadmin/pages/Masters';
+import SuperAdminUsers from './superadmin/pages/Users';
+import AuditLogsPage from './superadmin/pages/AuditLogs';
+import AccreditationLayout from './accreditation/AccreditationLayout';
+import AccreditationQueue from './accreditation/pages/Queue';
+import PrintIssuePage from './accreditation/pages/PrintIssue';
+import ScanPage from './accreditation/pages/Scan';
+import AccreditationReports from './accreditation/pages/Reports';
 
 function App() {
   return (
-    <Router basename="/WYC-2026---TMS">
+    <Router basename={import.meta.env.BASE_URL}>
       <Routes>
         <Route path="/" element={<Navigate to="/tms" replace />} />
+        {/* Registration (public) */}
+        <Route path="/registration" element={<ErrorBoundary><div className="tms-app" style={{ minHeight: '100vh', background: 'var(--tms-canvas)' }}><RoleSelector /><Outlet /></div></ErrorBoundary>}>
+          <Route path="login" element={<RegistrationLogin />} />
+          <Route element={<RegistrationLayout />}>
+            <Route index element={<RegistrationDashboard />} />
+            <Route path="delegation" element={<DelegationPage />} />
+            <Route path="participants" element={<ParticipantsPage />} />
+            <Route path="entries" element={<EventEntriesPage />} />
+            <Route path="submit" element={<SubmitPage />} />
+          </Route>
+        </Route>
+        {/* Super Admin (separate, connected) */}
+        <Route path="/super-admin" element={<ErrorBoundary><div className="tms-app" style={{ minHeight: '100vh', background: 'var(--tms-canvas)' }}><RoleSelector /><Outlet /></div></ErrorBoundary>}>
+          <Route element={<SuperAdminLayout />}>
+            <Route index element={<SuperAdminDashboard />} />
+            <Route path="config" element={<SystemConfigPage />} />
+            <Route path="masters" element={<MastersPage />} />
+            <Route path="users" element={<SuperAdminUsers />} />
+            <Route path="audit" element={<AuditLogsPage />} />
+          </Route>
+        </Route>
+        {/* Accreditation */}
+        <Route path="/accreditation" element={<ErrorBoundary><div className="tms-app" style={{ minHeight: '100vh', background: 'var(--tms-canvas)' }}><RoleSelector /><Outlet /></div></ErrorBoundary>}>
+          <Route element={<AccreditationLayout />}>
+            <Route index element={<AccreditationQueue />} />
+            <Route path="print" element={<PrintIssuePage />} />
+            <Route path="scan" element={<ScanPage />} />
+            <Route path="reports" element={<AccreditationReports />} />
+          </Route>
+        </Route>
         <Route path="/tms" element={
           <ErrorBoundary>
             <div className="tms-app" style={{ minHeight: '100vh', background: 'var(--tms-canvas)' }}>
@@ -83,6 +134,9 @@ function App() {
             <Route path="protests" element={<AdminProtests />} />
             <Route path="reports" element={<AdminReports />} />
             <Route path="users" element={<AdminUsers />} />
+            <Route path="verification" element={<VerificationQueue />} />
+            <Route path="sync" element={<SyncMonitoring />} />
+            <Route path="search" element={<GlobalSearch />} />
           </Route>
           <Route path="*" element={<Navigate to="/tms" replace />} />
         </Route>

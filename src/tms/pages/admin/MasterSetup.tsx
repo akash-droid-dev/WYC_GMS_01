@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useTMSStore } from '../../store/tmsStore';
 
 export default function AdminMasterSetup() {
@@ -50,6 +51,10 @@ export default function AdminMasterSetup() {
       <h1 className="tms-page-title">Master Setup & Configuration</h1>
       <p style={{ color: 'var(--tms-slate)', marginBottom: 24 }}>
         FR-001→006 · Disciplines, Age Categories, Eligibility Matrix
+      </p>
+      <p style={{ marginBottom: 16, padding: 12, background: 'rgba(19, 136, 8, 0.08)', borderRadius: 8, fontSize: 13 }}>
+        <strong>Cloud-connected:</strong> Global age categories, event types, and eligibility matrix are managed in{' '}
+        <Link to="/super-admin/masters">Super Admin → Masters</Link> and apply to Registration, TMS, and Accreditation.
       </p>
 
       <div className="tms-tabs">

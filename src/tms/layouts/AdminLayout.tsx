@@ -5,6 +5,9 @@ import TMSLogo from '../components/TMSLogo';
 
 const SIDEBAR = [
   { path: '', label: 'Dashboard' },
+  { path: 'search', label: 'Global Search' },
+  { path: 'verification', label: 'Verification Queue' },
+  { path: 'sync', label: 'Sync Monitoring' },
   { path: 'setup', label: 'Master Setup' },
   { path: 'delegations', label: 'Delegations' },
   { path: 'athletes', label: 'Athletes' },
@@ -53,8 +56,12 @@ export default function AdminLayout() {
       <aside className={`tms-sidebar tms-sidebar-admin ${sidebarOpen ? 'open' : ''}`}>
         <div className="tms-sidebar-header">
           <TMSLogo size={40} showLabel compact />
-          <div className="tms-sidebar-title">Tournament Management</div>
-          <div className="tms-sidebar-subtitle">Super Admin · AK</div>
+          <div className="tms-sidebar-title">Unified Admin</div>
+          <div className="tms-sidebar-subtitle">Registration · TMS · Accreditation</div>
+        </div>
+        <div style={{ padding: '0 12px 12px' }}>
+          <Link to="/super-admin" className="tms-btn tms-btn-secondary" style={{ width: '100%', fontSize: 12 }}>→ Super Admin</Link>
+          <Link to="/accreditation" className="tms-btn tms-btn-secondary" style={{ width: '100%', fontSize: 12, marginTop: 6 }}>→ Accreditation</Link>
         </div>
         <nav className="tms-sidebar-nav">
           {SIDEBAR.map((n) => {

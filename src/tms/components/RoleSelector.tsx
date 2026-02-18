@@ -15,7 +15,11 @@ export default function RoleSelector() {
   const [open, setOpen] = useState(false);
   const location = useLocation();
 
-  const currentPath = location.pathname.replace('/tms', '') || '/';
+  const pathname = location.pathname;
+  const isRegistration = pathname.includes('/registration');
+  const isSuperAdmin = pathname.includes('/super-admin');
+  const isAccreditation = pathname.includes('/accreditation');
+  const currentPath = pathname.replace('/tms', '') || '/';
   const currentRole = currentPath.startsWith('/admin') ? 'Admin' :
     currentPath.startsWith('/judge') ? 'Judge' :
     currentPath.startsWith('/delegation') ? 'Delegation' : 'Public';
@@ -76,35 +80,45 @@ export default function RoleSelector() {
           border: '1px solid rgba(0,0,0,0.08)',
           borderRadius: 10,
           boxShadow: '0 8px 24px rgba(0,0,0,0.12)',
-          minWidth: 160,
+          minWidth: 200,
           overflow: 'hidden',
         }}>
-          {ROLES.map((r, i) => (
-            <Link
-              key={r.role}
-              to={r.path ? `/tms${r.path}` : '/tms'}
-              onClick={() => selectRole(r)}
-              style={{
-                display: 'block',
-                padding: '12px 16px',
-                color: 'var(--tms-navy)',
-                textDecoration: 'none',
-                fontSize: 14,
-                fontWeight: r.label === currentRole ? 600 : 400,
-                background: r.label === currentRole ? 'rgba(19, 136, 8, 0.08)' : 'transparent',
-                borderBottom: i < ROLES.length - 1 ? '1px solid #f1f5f9' : 'none',
-                transition: 'background 0.15s',
-              }}
-              onMouseEnter={(e) => {
-                if (r.label !== currentRole) e.currentTarget.style.background = 'rgba(0,0,0,0.04)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.background = r.label === currentRole ? 'rgba(19, 136, 8, 0.08)' : 'transparent';
-              }}
-            >
-              {r.label}
-            </Link>
-          ))}
+          <div style={{ padding: '8px 12px', fontSize: 11, color: 'var(--tms-slate)', borderBottom: '1px solid #f1f5f9' }}>Modules</div>
+          <Link to="/registration" style={{ display: 'block', padding: '8px 16px', fontSize: 13, color: 'var(--tms-navy)', textDecoration: 'none', background: isRegistration ? 'rgba(19,136,8,0.08)' : 'transparent' }}>Registration</Link>
+          <Link to="/tms" style={{ display: 'block', padding: '8px 16px', fontSize: 13, color: 'var(--tms-navy)', textDecoration: 'none', background: !isRegistration && !isSuperAdmin && !isAccreditation ? 'rgba(19,136,8,0.08)' : 'transparent' }}>TMS</Link>
+          <Link to="/super-admin" style={{ display: 'block', padding: '8px 16px', fontSize: 13, color: 'var(--tms-navy)', textDecoration: 'none', background: isSuperAdmin ? 'rgba(19,136,8,0.08)' : 'transparent' }}>Super Admin</Link>
+          <Link to="/accreditation" style={{ display: 'block', padding: '8px 16px', fontSize: 13, color: 'var(--tms-navy)', textDecoration: 'none', background: isAccreditation ? 'rgba(19,136,8,0.08)' : 'transparent' }}>Accreditation</Link>
+          {pathname.includes('/tms') && (
+            <>
+              <div style={{ padding: '8px 12px', fontSize: 11, color: 'var(--tms-slate)', borderBottom: '1px solid #f1f5f9' }}>View as (TMS)</div>
+              {ROLES.map((r, i) => (
+                <Link
+                  key={r.role}
+                  to={r.path ? `/tms${r.path}` : '/tms'}
+                  onClick={() => selectRole(r)}
+                  style={{
+                    display: 'block',
+                    padding: '12px 16px',
+                    color: 'var(--tms-navy)',
+                    textDecoration: 'none',
+                    fontSize: 14,
+                    fontWeight: r.label === currentRole ? 600 : 400,
+                    background: r.label === currentRole ? 'rgba(19, 136, 8, 0.08)' : 'transparent',
+                    borderBottom: i < ROLES.length - 1 ? '1px solid #f1f5f9' : 'none',
+                    transition: 'background 0.15s',
+                  }}
+                  onMouseEnter={(e) => {
+                    if (r.label !== currentRole) e.currentTarget.style.background = 'rgba(0,0,0,0.04)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.background = r.label === currentRole ? 'rgba(19, 136, 8, 0.08)' : 'transparent';
+                  }}
+                >
+                  {r.label}
+                </Link>
+              ))}
+            </>
+          )}
         </div>
       )}
     </div>

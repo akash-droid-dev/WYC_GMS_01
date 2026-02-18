@@ -3,5 +3,6 @@ import react from '@vitejs/plugin-react'
 
 export default defineConfig({
   plugins: [react()],
-  base: '/WYC-2026---TMS/'
+  // GitHub Pages: /WYC_GMS_01/ for https://akash-droid-dev.github.io/WYC_GMS_01/
+  base: '/WYC_GMS_01/',
 })
