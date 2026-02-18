@@ -3,6 +3,7 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches: [main]
+  workflow_dispatch:
 
 concurrency:
   group: pages
@@ -24,15 +25,18 @@ jobs:
           cache: 'npm'
 
       - name: Install
-        run: npm ci
+        run: npm ci || npm install
 
       - name: Build
         run: npm run build
+
+      - name: List dist
+        run: ls -la dist/
 
       - name: Deploy to gh-pages
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist
+          publish_branch: gh-pages
           force_orphan: true
-          cname: # leave empty for username.github.io/repo-name
